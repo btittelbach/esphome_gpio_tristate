@@ -10,9 +10,9 @@ It might also allow you to read the GPIO state when you are not driving it HIGH 
 
 The pin state is set with a float value.
 
-- value 0.0: LOW  (really: any value from 0.00000 and smaller than 0.6)
-- value 0.5: high-Z (really: any value from 0.60001 to 0.6000)
-- value 1.0: HIGH (really: any value from above 0.60000 and to 1.0000)
+- value 0.0: LOW  (really: any value from 0.0 and smaller than 0.4)
+- value 0.5: high-Z (really: any value from 0.4 to 0.6)
+- value 1.0: HIGH (really: any value from above 0.6and to 1.0)
 
 ## Usage in esphome yaml and example
 
