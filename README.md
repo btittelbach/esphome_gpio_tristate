@@ -12,7 +12,7 @@ The pin state is set with a float value.
 
 - value 0.0: LOW  (really: any value from 0.0 and smaller than 0.4)
 - value 0.5: high-Z (really: any value from 0.4 to 0.6)
-- value 1.0: HIGH (really: any value from above 0.6and to 1.0)
+- value 1.0: HIGH (really: any value from above 0.6 and to 1.0)
 
 ## Usage in esphome yaml and example
 
