@@ -1,0 +1,114 @@
+### Example
+###
+### This is an example, which assumes an esp32 that is connected to the pins of
+### a cover-shutter remote.
+###
+### The script will keep the pins at high-Z (aka Input PinMode) so the remote can
+### continue to be used by hand.
+### However the esp32 can also override the pins of the buttons remotely.
+###
+#===============================================================================
+substitutions:
+  device_name: tristatetest
+#===============================================================================
+
+esphome:
+  name: ${device_name}
+
+esp32:
+  board: esp32-s3-devkitc-1
+  framework:
+    type: esp-idf
+
+#### Copy & Paste to get your code going:
+
+external_components:
+  - source:
+      type: git
+      url: https://github.com/btittelbach/esphome_gpio_tristate
+      ref: main
+    components: [ "gpio_tristate" ]
+
+
+#### Define gpio_tristate output pins according to your hardware:
+
+output:
+  - platform: gpio_tristate
+    pin:
+      number: 4
+      mode: input
+    id: gpio_zb35_b0
+
+  - platform: gpio_tristate
+    pin:
+      number: 5
+      mode: input
+    id: gpio_zb35_b1
+
+
+#### Example Usage of pins:
+
+script:
+  - id: rollo_set_gpio_to_input
+    mode: single
+    then:
+      - output.set_level:
+          id: gpio_zb35_b0
+          level: 50%
+      - output.set_level:
+          id: gpio_zb35_b1
+          level: 50%
+  - id: rollo_up
+    mode: single
+    then:
+      - output.set_level:
+          id: gpio_zb35_b0
+          level: 100%
+      - output.set_level:
+          id: gpio_zb35_b1
+          level: 0%
+      - delay: 1500ms
+  - id: rollo_down
+    mode: single
+    then:
+      - output.set_level:
+          id: gpio_zb35_b0
+          level: 0%
+      - output.set_level:
+          id: gpio_zb35_b1
+          level: 100%
+      - delay: 1500ms
+  - id: rollo_stop
+    mode: single
+    then:
+      - output.set_level:
+          id: gpio_zb35_b0
+          level: 100%
+      - output.set_level:
+          id: gpio_zb35_b1
+          level: 100%
+      - delay: 1500ms
+
+cover:
+  - platform: template
+    optimistic: true
+    assumed_state: true
+    has_position: false
+    device_class: shutter
+    id: rollo
+    name: zb35_rollo_all
+    open_action:
+      - script.execute: rollo_up
+      - script.wait: rollo_up
+      - script.execute: rollo_set_gpio_to_input
+      - script.wait: rollo_set_gpio_to_input
+    close_action:
+      - script.execute: rollo_down
+      - script.wait: rollo_down
+      - script.execute: rollo_set_gpio_to_input
+      - script.wait: rollo_set_gpio_to_input
+    stop_action:
+      - script.execute: rollo_stop
+      - script.wait: rollo_stop
+      - script.execute: rollo_set_gpio_to_input
+      - script.wait: rollo_set_gpio_to_input
