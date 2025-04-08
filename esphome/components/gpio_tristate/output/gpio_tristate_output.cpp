@@ -16,7 +16,7 @@ void GPIOTristateOutput::dump_config() {
     // state is the amount this output should be on, 0.0 for LOW, 0.5 for HIGH-IMPEDANCE, 1.0 for HIGH
     // int value = state * 10;
     int value = state * 10;
-    if (value >= 4 && value <= 6) {
+    if (value >= 3 && value <= 7) {
 #ifdef USE_ESP32
       static_cast<esp32::ESP32InternalGPIOPin*>(this->pin_)->pin_mode(gpio::Flags::FLAG_INPUT);
       // gpio_set_direction(static_cast<esp32::ESP32InternalGPIOPin*>(this->pin_), esp32::GPIO_MODE_INPUT_ONLY);
