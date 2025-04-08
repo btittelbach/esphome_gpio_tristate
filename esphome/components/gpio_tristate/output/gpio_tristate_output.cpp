@@ -24,8 +24,6 @@ void GPIOTristateOutput::dump_config() {
 #endif
 #ifdef USE_ESP8266
       static_cast<esp8266::ESP8266GPIOPin*>(this->pin_)->pin_mode(gpio::Flags::FLAG_INPUT);
-      // gpio_set_direction(static_cast<esp32::ESP32InternalGPIOPin*>(this->pin_), esp32::GPIO_MODE_INPUT_ONLY);
-      // gpio_set_pull_mode(static_cast<esp32::ESP32InternalGPIOPin*>(this->pin_), esp32::GPIO_FLOATING);
 #endif
 #ifdef USE_RP2040
       static_cast<rp2040::RP2040GPIOPin*>(this->pin_)->pin_mode(gpio::Flags::FLAG_INPUT);
@@ -43,8 +41,6 @@ void GPIOTristateOutput::dump_config() {
       static_cast<esp8266::ESP8266GPIOPin*>(this->pin_)->pin_mode(gpio::Flags::FLAG_OUTPUT);
       static_cast<esp8266::ESP8266GPIOPin*>(this->pin_)->set_inverted(false); //absolutely required, otherwise switching to output and LOW will enable inverted
       static_cast<esp8266::ESP8266GPIOPin*>(this->pin_)->digital_write(false);
-      // gpio_set_direction(static_cast<esp32::ESP32InternalGPIOPin*>(this->pin_), esp32::GPIO_MODE_OUTPUT);
-      // gpio_set_level(pin_number, 0);
 #endif
 #ifdef USE_RP2040
       static_cast<rp2040::RP2040GPIOPin*>(this->pin_)->pin_mode(gpio::Flags::FLAG_OUTPUT);
@@ -64,8 +60,6 @@ void GPIOTristateOutput::dump_config() {
       static_cast<esp8266::ESP8266GPIOPin*>(this->pin_)->pin_mode(gpio::Flags::FLAG_OUTPUT);
       static_cast<esp8266::ESP8266GPIOPin*>(this->pin_)->set_inverted(false); //absolutely required, otherwise switching to output and low will enable inverted
       static_cast<esp8266::ESP8266GPIOPin*>(this->pin_)->digital_write(true);
-      // gpio_set_direction(dynamic_cast<esp32::ESP32InternalGPIOPin*>(this->pin_), esp32::GPIO_MODE_OUTPUT);
-      // gpio_set_level(pin_number, 1);
 #endif
 #ifdef USE_RP2040
       static_cast<rp2040::RP2040GPIOPin*>(this->pin_)->pin_mode(gpio::Flags::FLAG_OUTPUT);
