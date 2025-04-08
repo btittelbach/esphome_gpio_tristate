@@ -49,5 +49,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE.txt) 
 
 - [x] test on esp32
 - [x] ensure it works on esp-idf and arduino
-- [ ] make compile with rp2040
-- [ ] make compile with esp8266
+- [x] make compile with rp2040
+- [x] make compile with esp8266
